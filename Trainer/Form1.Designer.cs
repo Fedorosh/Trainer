@@ -30,6 +30,7 @@
         {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.button1 = new System.Windows.Forms.Button();
+            this.immortality = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // backgroundWorker1
@@ -46,11 +47,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // immortality
+            // 
+            this.immortality.AutoSize = true;
+            this.immortality.Location = new System.Drawing.Point(177, 180);
+            this.immortality.Name = "immortality";
+            this.immortality.Size = new System.Drawing.Size(74, 17);
+            this.immortality.TabIndex = 1;
+            this.immortality.Text = "immortality";
+            this.immortality.UseVisualStyleBackColor = true;
+            this.immortality.CheckedChanged += new System.EventHandler(this.immortality_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.immortality);
             this.Controls.Add(this.button1);
             this.KeyPreview = true;
             this.Name = "Form1";
@@ -60,6 +73,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -67,6 +81,7 @@
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox immortality;
     }
 }
 
