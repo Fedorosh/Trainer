@@ -17,48 +17,35 @@ namespace Trainer
         public Form1()
         {
             InitializeComponent();
-            this.KeyPreview = true;
         }
 
         public Mem m = new Mem();
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (!backgroundWorker1.IsBusy) backgroundWorker1.RunWorkerAsync();
             int ID = m.getProcIDFromName("toy2.exe");
-            if(ID == 0) MessageBox.Show("Nie ma procesu");
+            if (ID == 0) { MessageBox.Show("Nie ma procesu"); }
             else m.OpenProcess("toy2.exe");
+            if (!backgroundWorker1.IsBusy) backgroundWorker1.RunWorkerAsync();
+            if (m.read2Byte("0x0052F396") != 14) m.writeMemory("0x0052F396", "int", "14"); //buzz's HP
+            m.writeMemory("0x0040732A", "byte", "0x0"); //invincible buzz
+            m.writeMemory("0x004E067C", "byte", "0xC"); //laser
+            m.writeMemory("0x004E0676", "byte", "0x14"); //whirl
+            m.writeMemory("0x004E068E", "byte", "0x14"); //stomp
+            m.writeMemory("0x004E0688", "byte", "0x14"); //disks
 
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while(true)
-            if (immortality.Checked)
             {
-                    if (m.read2Byte("0x0052F39A") < 1 || m.read2Byte("0x0052F39A") > 1) m.writeMemory("0x0052F39A", "int", "1");
+                if (m.read2Byte("0x0052F39A") < 1 || m.read2Byte("0x0052F39A") > 1) m.writeMemory("0x0052F39A", "int", "1");
+                if (m.read2Byte("0x0052F39E") < 50) m.writeMemory("0x0052F39E", "int", "50");
+                if (m.read2Byte("0x0052B7D8") < 5) m.writeMemory("0x0052B7D8", "int", "5");
+                if (m.getProcIDFromName("toy2.exe") == 0) { MessageBox.Show("Nie ma procesu"); break; }
             }
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            m.writeMemory("0x0052F39E", "int", "50");
-            var x = m.readBytes("0x00407328", 6);
-        }
-
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)49)
-            {
-                if (immortality.Checked) immortality.Checked = false;
-                else immortality.Checked = true;
-            }
-        }
-
-        private void immortality_CheckedChanged(object sender, EventArgs e)
-        {
-            if(immortality.Checked) m.writeMemory("0x0040732A", "byte", "0x0");
-            else m.writeMemory("0x0040732A", "byte", "0x2");
         }
     }
 }
